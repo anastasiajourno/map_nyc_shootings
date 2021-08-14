@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Shootings in the New York City</title>
+		<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+		<link href="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.css" rel="stylesheet">
+		<script src="https://api.mapbox.com/mapbox-gl-js/v2.3.1/mapbox-gl.js"></script>
+		<style>
+			body { margin: 0; padding: 0; }
+			#map { position: absolute; top: 0; bottom: 0; width: 100%; }
+			.map-overlay {
+		        position: absolute;
+		        bottom: 0;
+		        right: 0;
+		        background: rgba(255, 255, 255, 0.8);
+		        margin-right: 20px;
+		        font-family: Arial, sans-serif;
+		        overflow: auto;
+		        border-radius: 3px;
+		    }
+
+		    #legend {
+		        padding: 10px;
+		        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+		        line-height: 18px;
+		        height: 200px;
+		        margin-bottom: 40px;
+		        width: 100px;
+		    }
+
+		    #legend h3{
+		    	margin-top: 0;
+		    }
+
+		    .legend-key {
+		        display: inline-block;
+		        border-radius: 20%;
+		        width: 10px;
+		        height: 10px;
+		        margin-right: 5px;
+		    }
+		</style>
+	</head>
+	<body>
+		<div id="map"></div>
+		<div class='map-overlay' id='legend'><h5>% of black population per neighbourhood</h5></div>
+			<script>
+				mapboxgl.accessToken = 'pk.eyJ1IjoiYW5hc3Rhc2lhdmFsZWV2YSIsImEiOiJja3J1cHJpeWwwMWk4Mm5wYWFvenQ1cm5iIn0.rsNk-sidAVK2HKKXJn_E1Q';
+
+				var map = new mapboxgl.Map({
+					container: 'map', // container ID
+					style: 'mapbox://styles/anastasiavaleeva/cksc3d9r32nef17rzudupo5fp', // custom style url from https://studio.mapbox.com/
+					center: [-73.96187127675769, 40.74580702349961, ], // starting position
+					zoom: 9 // starting zoom
+				});
+
+				map.on('load', function() {
+					//create legend
+					var bins = ['>20%', '20-40%', '40-60%', '60-80%', '80%<'];
+					var colors = ['#f1eef6', '#bdc9e1', '#74a9cf', '#2b8cbe', '#045a8d'];
+
+					for (i = 0; i < bins.length; i++) {
+						console.log(bins[i]);
+						var layer = bins[i];
+						var color = colors[i];
+						var item = document.createElement('div');
+						var key = document.createElement('span');
+						key.className = 'legend-key';
+						key.style.backgroundColor = color;
+
+						var value = document.createElement('span');
+						value.innerHTML = layer;
+						item.appendChild(key);
+						item.appendChild(value);
+						legend.appendChild(item);
+					}
+				});
+				
+
+			</script>
+	 
+	</body>
+</html>
